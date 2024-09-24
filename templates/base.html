@@ -1,0 +1,331 @@
+{% load static %} 
+
+<html dir="rtl">
+    <head>
+      
+        <title>My Sarv</title>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+    rel="stylesheet"
+  /> 
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <style>
+          @font-face {
+          font-family: 'shabnam';
+          src: url('../fonts/shabnam.ttf') format('ttf'); 
+          font-weight: normal;
+          font-style: normal;
+        }  
+          .body{
+            font-family: 'shabnam';
+          }
+          .page-container {
+            position: relative;
+            min-height: 100vh;
+          }
+          
+          .content-wrap {
+            padding-bottom: 2.5rem;
+          }
+          
+          .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 2.5rem;
+          }
+        </style>
+    <title>{% block title %}My Sarv{% endblock %}</title>
+  </head >
+  <body class="page-container " >
+    <div class="content-wrap">
+    
+       <nav role="navigation" style=" background: rgb(255,255,255);
+      background: linear-gradient(38deg,  rgba(131,234,255,1) 0%, rgba(255,255,255,1) 100%),; " 
+      class="navbar bg-dark   navbar-expand-lg navbar-dark">
+      <div  class="container-fluid ">
+
+        <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+      <a class="navbar-brand mt-2 mt-lg-0" 
+      href="{% url 'dashboard' %}"
+      >
+      
+        <div class="d-flex align-items-end">
+            <img src="{% static 'media/Sarv blue.png' %}" 
+            class=" d-block"
+            style="width: 30px"
+            alt="Sarv logo" />
+            <b class="me-2">سرو من</b>
+            
+        </div>
+      </a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link"
+          href={% url "userprofile" %}
+          >پروفایل</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+           >پروسه ها</a>
+        </li>
+        
+            {% endif %}
+            {% if user.is_superuser %}
+            <li  class="nav-item">
+              <a class="nav-link" >چک ها</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" 
+              href = {% url "customerlist" %}
+              >مشتریان</a>
+            </li>
+            
+      </ul>
+    </div> 
+
+    <div class="d-flex align-items-center m-2">
+      
+      <div class="dropdown p-1 hover-shadow">
+        <a
+          class="dropdown-toggle  d-flex align-items-center hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+        
+        {% if user.is_authenticated %}
+        <i class="fas fa-angle-down"></i>
+        <span class="text-info m-1 ">{{user.username}}
+          {% if user.is_superuser %}
+          <span class="text-info ">(Admin) </span>
+          {% endif %}
+        </span>
+        <i class="far fa-user text-light "></i>
+        
+        {% endif %} 
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuAvatar"
+        >
+        {% if user.is_authenticated %}
+        <li >
+          <a class="dropdown-item" href="{% url 'userprofile' %}" >پروفایل</a>
+        </li>
+        {% if user.is_superuser %}
+          <li >
+            <a class="dropdown-item" href="{% url 'adminpanel' %}" >مدیریت</a>
+          </li>
+          {% endif %}
+          <li >
+            <form
+            method= "post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="dropdown-item"  type="submit" >خروج</a>
+            </form>
+
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+      {% if user.is_authenticated %}
+            {% else %}
+            <a class="text-info m-1 " href="{% url 'login' %}" >ورود</a>
+      {% endif %}
+    </div>
+
+        
+        
+      </div>
+    </nav> 
+
+
+    <section class="container"  >
+    {% block content %} {% endblock %}
+    </section>
+
+
+
+
+    {% block footer %}
+    <div class="footer">
+<footer class="bg-dark text-center text-white">
+  <div class="container p-4">
+    <section class="mb-4">
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
+
+      <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/emadg-dev/MyOnlineStore" role="button"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <section class="">
+      <form action="">
+        <div class="row d-flex justify-content-center">
+          <div class="col-auto">
+            <p class="pt-2">
+              <strong>Sign up for our newsletter</strong>
+            </p>
+          </div>
+          <div class="col-md-5 col-12">
+            <div class="form-outline form-white mb-4">
+              <input type="email" id="form5Example21" class="form-control" />
+              <label class="form-label" for="form5Example21">Email address</label>
+            </div>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-outline-light mb-4">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+    <section class="mb-4">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
+        eum harum corrupti dicta, aliquam sequi voluptate quas.
+      </p>
+    </section>
+    <section class="">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 4</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2020 Copyright:
+    <a class="text-white" href="#">EmadGhosi.com</a>
+  </div>
+</footer>
+      
+    </div>
+    {% endblock footer %}
+
+
+
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
+  ></script>
+  </div>
+  </body>
+</html>
+
+
+
