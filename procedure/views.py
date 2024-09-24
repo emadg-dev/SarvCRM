@@ -35,6 +35,9 @@ class CustomerListView(LoginRequiredMixin, ListView):
         name = self.request.GET.get('name', None)
         lock = self.request.GET.get('lock', None)
         phone = self.request.GET.get('phone', None)
+        owner = self.request.GET.get('owner', None)
+        status = self.request.GET.get('status', None)
+        lead = self.request.GET.get('lead', None)
 
         # Apply filters to queryset if values are provided
         if name:
@@ -43,5 +46,11 @@ class CustomerListView(LoginRequiredMixin, ListView):
             queryset = queryset.filter(lock__icontains=lock)
         if phone:
             queryset = queryset.filter(phone__icontains=phone)
+        if owner:
+            queryset = queryset.filter(owner__icontains=phone)
+        if status:
+            queryset = queryset.filter(status__icontains=phone)
+        if lead:
+            queryset = queryset.filter(lead__icontains=phone)
 
         return queryset
