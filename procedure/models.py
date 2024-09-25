@@ -3,6 +3,8 @@ from auditlog.registry import auditlog
 from django.db import models
 from django.urls import reverse
 from accounts.models import CustomUser   
+from django.core.validators import RegexValidator
+
     
 class Customer(models.Model):
     user = models.ForeignKey(CustomUser,
@@ -46,9 +48,45 @@ class Customer(models.Model):
     
     def __str__(self):
         return str (self.name + " - " + self.branch + " : " + self.owner)
-auditlog.register(Customer)
     
     # def GetCost(self):
     #     return self.product.product.price
 
+class Procedure(models.Model):
+    username_regex = RegexValidator(
+        regex=r'^[a-zA-Z0-9_.]+$', 
+        message="نام کاربری تنها می‌تواند شامل حروف انگلیسی، اعداد، _ و نقطه باشد."
+    )
+    
+    username = models.CharField(
+        max_length=150,
+        unique=True,
+        validators=[username_regex],
+        error_messages={
+            'unique': "نام کاربری تکراری است.",
+        }
+    )
 
+    persian_regex = RegexValidator(
+        regex=r'^[\u0600-\u06FF\s]+$',  
+        message="این فیلد را به فارسی وارد کنید."
+        )
+    first_name = models.CharField(max_length=30, validators=[persian_regex], default='')  
+    last_name = models.CharField(max_length=30, validators=[persian_regex], default='')  
+
+    phone_regex = RegexValidator(
+        regex=r'^09\d{9}$',  
+        message="شماره تلفن را به درستی وارد کنید."
+        )
+    phone = models.CharField(max_length=11, validators=[phone_regex], default='')  
+
+
+class Status(models.Model):
+
+    name = models.CharField(max_length=30, default='')  
+    #last_name = models.CharField(max_length=30, default='')  
+
+
+
+auditlog.register(Customer)
+auditlog.register(Procedure)

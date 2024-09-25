@@ -11,54 +11,94 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     rel="stylesheet"
     />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 
-  <link
+    <link
     href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
     rel="stylesheet"
-  /> 
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    /> 
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    <style>
+        /* Add some spacing and mobile-specific styling */
+        .admin-panel-btn {
+            padding: 1.5rem;
+        }
+        .icon-large {
+            font-size: 2rem;
+        }
+    </style>
 </head>
 
 <body>
 
     {% if user.is_staff %}
         
-        
         <div class="container">
-            <div class="text-center mt-3">
-                <i class="fas fa-screwdriver-wrench fa-2x"></i>
-                <span class="h2 m-2 text-center 
-                text-uppercase ">پنل مدیریت<span>
-              </div>
+            <div class="wrapper">
+                <div class="text-center mt-3">
+                  <i class="fas fa-user-tie icon-large fs-3"></i>
+                  <span class="fw-bold m-2 text-center fs-2"
+                  >مدیریت</span>
+              </div>   
             <hr>
             <div class="row">
                 <div class="row justify-content-center">
-                   
-                    <a class="btn btn-outline-primary text-center p-5 m-3" 
-                        style="width: 250px; maxheight:350px;" 
-                        href="{% url 'customerlist' %}">مشتریان</a>
-                    <a class="btn btn-outline-primary text-center p-5 m-3" 
-                        style="width: 250px; maxheight:350px;" 
-                        href="{% url 'userlist' %}">کاربران سیستم</a>
-                    <a class="btn btn-outline-primary text-center p-5 m-3" 
-                        style="width: 250px; maxheight:350px;" 
-                        href="{% url 'adminpanel' %}">پروسه ها</a>
-                    <a class="btn btn-outline-primary text-center p-5 m-3" 
-                        style="width: 250px; maxheight:350px;" 
-                        href="{% url 'adminpanel' %}">گزارشات</a>
+                    <!-- Wrap the buttons and adjust based on screen size -->
+                    <div class="col-12 col-md-6 col-lg-3 my-2">
+                        
+                        <a class="btn btn-primary btn-lg w-100 admin-panel-btn " 
+                            href="{% url 'customerlist' %}">
+                           
+                            <div class="text-right">
+                                <i class="fas fa-shop icon-large fs-6"></i>
+                                <span class="fw-bold m-2 text-center fs-6">
+                                مشتریان
+                                </span>
+                            </div>   
+                            
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 my-2">
+                        <a class="btn btn-primary btn-lg w-100 admin-panel-btn fs-6" 
+                            href="{% url 'userlist' %}">
+                            <div class="text-right">
+                                <i class="fas fa-user icon-large fs-6"></i>
+                                <span class="fw-bold m-2 text-center fs-6">
+                                کاربران سیستم
+                                </span>
+                            </div>   
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 my-2">
+                        <a class="btn btn-primary disabled btn-lg w-100 admin-panel-btn fs-6"  
+                            href="{% url 'adminpanel' %}">
+                            <div class="text-right ">
+                                <i class="fa-solid fa-chart-line fs-6"></i>
+                                <span class="fw-bold m-2 text-center fs-6">
+                                گزارشات
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6  col-lg-3 my-2">
+                        <a class="btn btn-primary disabled btn-lg w-100 admin-panel-btn fs-6" 
+                            href="{% url 'adminpanel' %}">
+                            <div class="text-right ">
+                                <i class="fa-solid fa-money-check-dollar fs-6"></i>
+                                <span class="fw-bold m-2 text-center fs-6">
+                                چک ها
+                                </span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-            
         </div>
     
     {% endif %}
 </body>
 
-
-
-
 </html>
 
 {% endblock content %}
-

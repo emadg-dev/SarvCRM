@@ -21,11 +21,16 @@
 <body>
 
     <section class="container-fluid">
-        <h2 class="text-left mt-3 mb-3 ml-0">مشتری جدید</h2>
-        <hr>
+        <div class="wrapper">
+            <div class="text-right mt-3">
+              <i class="fas fa-shop icon-large fs-3"></i>
+              <i class="fa-solid fa-plus fs-5"></i>
+              <span class="fw-bold m-2 text-center fs-2">مشتری جدید</span>
+          </div>        
+          <hr>
         <div class="align-center">
             <div>
-                <h2>مشتری:</h2>
+                {% comment %} <h2>مشتری:</h2> {% endcomment %}
                 <form method="post">
                     {% csrf_token %}
                     {{ form|crispy }}

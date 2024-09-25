@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import RegexValidator
+from auditlog.registry import auditlog
 
 from django.contrib.auth.models import Group, Permission, AbstractUser
 
@@ -56,4 +57,6 @@ class CustomUser(AbstractUser):
     
     # def get_absolute_url(self):
     #     return reverse("model_detail", kwargs={"pk": self.pk})
-    
+
+
+auditlog.register(CustomUser)
