@@ -29,7 +29,7 @@ class CustomUser(AbstractUser):
         message="این فیلد را به فارسی وارد کنید."
         )
     first_name = models.CharField(max_length=30, validators=[persian_regex], default='')  
-    last_name = models.CharField(max_length=30, validators=[persian_regex], default='')  
+    last_name = models.CharField(max_length=30, validators=[persian_regex], default='', blank=True)  
 
     phone_regex = RegexValidator(
         regex=r'^09\d{9}$',  
@@ -38,19 +38,19 @@ class CustomUser(AbstractUser):
     phone = models.CharField(max_length=11, validators=[phone_regex], default='')  
     
 
-    groups = models.ManyToManyField(
-        Group,
-        related_name='customuser_set',  
-        blank=True,
-        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-        verbose_name='groups',
-        )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name='customuser_set',  
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions',
-        )
+    # groups = models.ManyToManyField(
+    #     Group,
+    #     related_name='customuser_set',  
+    #     blank=True,
+    #     help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+    #     verbose_name='groups',
+    #     )
+    # user_permissions = models.ManyToManyField(
+    #     Permission,
+    #     related_name='customuser_set',  
+    #     help_text='Specific permissions for this user.',
+    #     verbose_name='user permissions',
+    #     )
 
     def __str__(self) -> str:
         return str(self.first_name)

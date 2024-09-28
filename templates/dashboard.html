@@ -17,13 +17,12 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/panel.css' %}">
 
-    <!-- Custom CSS for mobile enhancements -->
     <style>
-        
+      
     </style>
 </head>
 
-<div class="container">
+<div class="container ">
     <div class="text-center mt-3">
         <i class="fas fa-screwdriver-wrench fs-3"></i>
         <span class="fw-bold m-2 text-center fs-2">
@@ -38,12 +37,12 @@
                 مشتریان
             </a>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 mb-3">
+        {% comment %} <div class="col-12 col-md-6 col-lg-4 mb-3">
             <a class="btn btn-primary btn-lg w-100 py-4 fs-5" 
             href="{% url 'adminpanel' %}">
                 پروسه ها
             </a>
-        </div>
+        </div> {% endcomment %}
         <div class="col-12 col-md-6 col-lg-4 mb-3">
           <a class="btn btn-primary disabled btn-lg w-100 py-4 fs-5" 
           href="{% url 'adminpanel' %}">

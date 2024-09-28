@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView,UpdateView,DeleteView
 from .models import *
-from .forms import CustomeraddForm
+from .forms import *
+from crm.CustomMixines import StaffRequiredMixin
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -54,3 +55,17 @@ class CustomerListView(LoginRequiredMixin, ListView):
             queryset = queryset.filter(lead__icontains=phone)
 
         return queryset
+
+
+class CustomerDeleteView(StaffRequiredMixin, DeleteView): 
+    model = Customer 
+    template_name = 'customerdelete.html' 
+    fields = "__all__" 
+    success_url = reverse_lazy('customerlist') 
+
+
+class CustomerUpdateView(LoginRequiredMixin, UpdateView): 
+    model = Customer 
+    template_name = 'customerupdate.html' 
+    form_class = CustomerUpdateForm
+    success_url = reverse_lazy('customerlist') 
