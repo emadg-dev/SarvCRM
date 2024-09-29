@@ -26,6 +26,7 @@
 
     <div class="wrapper">
       <div class="text-right mt-3">
+        <i class="fas fa-list icon-large fs-5"></i>
         <i class="fas fa-user icon-large fs-3"></i>
         <span class="fw-bold m-2 text-center fs-2">لیست کاربران</span>
     </div>
@@ -98,7 +99,7 @@
                         class="pinned-column align-right bg-light">
                             <div class="align-right">
                                 <a
-                                {% comment %} href="{% url 'customerupdate' pk=item.pk %}" {% endcomment %}
+                                href="{% url 'userupdate' pk=item.pk %}"
                                 class="btn btn-primary align-center p-1 m-1 "
                                 role="btn"
                                 >

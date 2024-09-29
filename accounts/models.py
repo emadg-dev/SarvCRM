@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.core.validators import RegexValidator
 from auditlog.registry import auditlog
 
+# import django_jalali.db.models as jmodels
+
 from django.contrib.auth.models import Group, Permission, AbstractUser
 
 # Create your models here.
@@ -11,7 +13,7 @@ class CustomUser(AbstractUser):
     # email = models.CharField(max_length=100)
 
     username_regex = RegexValidator(
-        regex=r'^[a-zA-Z0-9_.]+$',  # Allows English letters, digits, underscores, and dots
+        regex=r'^[a-zA-Z0-9_.]+$', 
         message="نام کاربری تنها می‌تواند شامل حروف انگلیسی، اعداد، _ و نقطه باشد."
     )
     

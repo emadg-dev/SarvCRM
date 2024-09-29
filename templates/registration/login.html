@@ -25,7 +25,7 @@
     </div>
     <form method="post">
         {% csrf_token %}{{form|crispy}}
-        <p class="text-dark">Don't have an account? <a href='{% url 'signup' %}'>Create here</a></p> 
+        {% comment %} <p class="text-dark">Don't have an account? <a href='{% url 'signup' %}'>Create here</a></p>  {% endcomment %}
         <button type="submit" class="btn btn-success">ورود</button>
     </form>
 </body>

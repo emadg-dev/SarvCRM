@@ -2,7 +2,11 @@ from django.db import models
 from auditlog.registry import auditlog
 from django.db import models
 from django.urls import reverse
-from accounts.models import CustomUser   
+from accounts.models import CustomUser 
+import jdatetime
+ 
+# import django_jalali.db.models as jmodels
+ 
 from django.core.validators import RegexValidator
 
     
@@ -49,6 +53,14 @@ class Customer(models.Model):
     def __str__(self):
         return str (self.name + " - " + self.branch + " : " + self.owner)
     
+    def get_jalali_created_at(self):
+        # Convert Gregorian date to Jalali
+        return jdatetime.datetime.fromgregorian(datetime=self.created_at).strftime('%Y/%m/%d %H:%M:%S')
+
+    def get_jalali_updated_at(self):
+        # Convert Gregorian date to Jalali
+        return jdatetime.datetime.fromgregorian(datetime=self.updated_at).strftime('%Y/%m/%d %H:%M:%S')
+    
     # def GetCost(self):
     #     return self.product.product.price
 
@@ -60,6 +72,9 @@ class Status(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return str (self.name)
+
 class Procedure(models.Model):
     
     user = models.ForeignKey(CustomUser,
@@ -70,6 +85,10 @@ class Procedure(models.Model):
             on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    comment = models.CharField(max_length=500, default='', blank=True) 
+
+    def __str__(self):
+        return str (self.customer + " - " + self.user) 
 
 
 
