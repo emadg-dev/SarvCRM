@@ -164,3 +164,17 @@ class ProcedureaddForm(forms.ModelForm):
     #         ),
     #         Submit('submit', 'ثبت', css_class='btn btn-primary')
     #     )
+
+class ProcedureUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Procedure
+        fields = [
+            # 'lock', 
+            'status', 
+            'user', 
+        ]
+        labels = {
+            # 'lock': 'قفل',
+            'status': 'وضعیت',
+            'user': 'کارشناس فروش',
+        }

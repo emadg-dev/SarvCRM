@@ -9,6 +9,9 @@ import jdatetime
  
 from django.core.validators import RegexValidator
 
+def get_jalali_date(self):
+        current_date = jdatetime.datetime.now()
+        return current_date.strftime('%Y/%m/%d') 
     
 class Customer(models.Model):
     user = models.ForeignKey(CustomUser,
@@ -31,8 +34,7 @@ class Customer(models.Model):
         (deadend, 'بن بست'),]
     status = models.CharField(max_length=50, choices=Status_Options, default=open)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    
 
     dispach = 'دیسپچ سرو'
     sepidz = 'دیسپچ سپیدز'
@@ -45,22 +47,29 @@ class Customer(models.Model):
         (internet, 'اینترنت'), (website, 'وبسایت'),
         (refferal, 'راه‌انداز'),
         ]
-    lead = models.CharField(max_length=50, choices=Lead_Options, default=open)                 
+    lead = models.CharField(max_length=50, choices=Lead_Options, default=open)          
+
+    created_at = models.CharField(max_length=20, editable=False)
+    updated_at = models.CharField(max_length=20, editable=False)
+
+    def get_jalali_date(self):
+        current_date = jdatetime.datetime.now()
+        return current_date.strftime('%Y/%m/%d')
+    
+    def save(self, *args, **kwargs):
+        if not self.created_at:  
+            self.created_at = self.get_jalali_date()
+        self.updated_at = self.get_jalali_date()  
+        super(Customer, self).save(*args, **kwargs)
+
+          
   
     def get_absolute_url(self): 
         return reverse('dashboard')
     
     def __str__(self):
         return str (self.name + " - " + self.branch + " : " + self.owner)
-    
-    def get_jalali_created_at(self):
-        # Convert Gregorian date to Jalali
-        return jdatetime.datetime.fromgregorian(datetime=self.created_at).strftime('%Y/%m/%d %H:%M:%S')
-
-    def get_jalali_updated_at(self):
-        # Convert Gregorian date to Jalali
-        return jdatetime.datetime.fromgregorian(datetime=self.updated_at).strftime('%Y/%m/%d %H:%M:%S')
-    
+   
     # def GetCost(self):
     #     return self.product.product.price
 
@@ -69,8 +78,18 @@ class Status(models.Model):
     name = models.CharField(max_length=30, default='')  
     #last_name = models.CharField(max_length=30, default='')  
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.CharField(max_length=20, editable=False)
+    updated_at = models.CharField(max_length=20, editable=False)
+
+    def get_jalali_date(self):
+        current_date = jdatetime.datetime.now()
+        return current_date.strftime('%Y/%m/%d')
+
+    def save(self, *args, **kwargs):
+        if not self.created_at:  
+            self.created_at = self.get_jalali_date()
+        self.updated_at = self.get_jalali_date()  
+        super(Status, self).save(*args, **kwargs)
 
     def __str__(self):
         return str (self.name)
@@ -83,12 +102,24 @@ class Procedure(models.Model):
             on_delete=models.PROTECT)
     status = models.ForeignKey(Status,
             on_delete=models.PROTECT)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    
     comment = models.CharField(max_length=500, default='', blank=True) 
 
+    created_at = models.CharField(max_length=20, editable=False)
+    updated_at = models.CharField(max_length=20, editable=False)
+
+    def get_jalali_date(self):
+        current_date = jdatetime.datetime.now()
+        return current_date.strftime('%Y/%m/%d')
+    
+    def save(self, *args, **kwargs):
+        if not self.created_at:  
+            self.created_at = self.get_jalali_date()
+        self.updated_at = self.get_jalali_date()  
+        super(Procedure, self).save(*args, **kwargs)
+
     def __str__(self):
-        return str (self.customer + " - " + self.user) 
+        return str (self.customer.name + " - " + self.user.first_name) 
 
 
 
