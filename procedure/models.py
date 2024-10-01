@@ -47,7 +47,7 @@ class Customer(models.Model):
         (internet, 'اینترنت'), (website, 'وبسایت'),
         (refferal, 'راه‌انداز'),
         ]
-    lead = models.CharField(max_length=50, choices=Lead_Options, default=open)          
+    lead = models.CharField(max_length=50, choices=Lead_Options, default=dispach)          
 
     created_at = models.CharField(max_length=20, editable=False)
     updated_at = models.CharField(max_length=20, editable=False)

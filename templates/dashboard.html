@@ -34,6 +34,7 @@
         <div class="col-12 col-md-6 col-lg-4 mb-3">
             <a class="btn btn-primary btn-lg w-100 py-4 fs-5" 
             href="{% url 'customerlist' %}">
+            <i class="fa-solid fa-shop fs-5 mx-1"></i>
                 مشتریان
             </a>
         </div>
@@ -46,12 +47,14 @@
         <div class="col-12 col-md-6 col-lg-4 mb-3">
           <a class="btn btn-primary  btn-lg w-100 py-4 fs-5" 
           href="{% url 'procedurelist' %}">
+          <i class="fa-solid fa-lightbulb fs-5 mx-1"></i>
               پروسه ها
           </a>
         </div>
         <div class="col-12  col-md-6 col-lg-4 mb-3">
-          <a class="btn btn-primary disabled btn-lg w-100 py-4 fs-5" 
-          href="{% url 'adminpanel' %}">
+          <a class="btn btn-primary btn-lg w-100 py-4 fs-5" 
+          href="{% url 'billlist' %}">
+          <i class="fa-solid fa-money-check-dollar fs-5 mx-1"></i>
               چک ها
           </a>
         </div>
@@ -59,13 +62,22 @@
         <div class="col-12  col-md-6 col-lg-4 mb-3">
           <a class="btn btn-primary btn-lg w-100 py-4 fs-5" 
           href="{% url 'adminpanel' %}">
+          <i class="fa-solid fa-key fs-5 mx-1"></i>
             مدیریت
           </a>
         </div>
         <div class="col-12  col-md-6 col-lg-4 mb-3">
           <a class="btn btn-primary btn-lg w-100 py-4 fs-5" 
           href="{% url 'userlist' %}">
+          <i class="fa-solid fa-user fs-5 mx-1"></i>
             کاربران
+          </a>
+        </div>
+        <div class="col-12  col-md-6 col-lg-4 mb-3">
+          <a class="btn btn-primary btn-lg w-100 py-4 fs-5" 
+          href="{% url 'factorlist' %}">
+          <i class="fa-solid fa-money-check fs-5 mx-1"></i>
+            فاکتور ها
           </a>
         </div>
         {% endif %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load humanize %}
 {% block content %}
 
 <html dir="rtl">
@@ -49,9 +49,8 @@
 
         <div class="wrapper">
             <div class="text-right mt-3">
-                <i class="fas fa-list icon-large fs-5"></i>
               <i class="fas fa-shop icon-large fs-3"></i>
-              <span class="fw-bold m-2 text-center fs-2">لیست مشتریان</span>
+              <span class="fw-bold m-2 text-center fs-2">لیست فاکتور ها</span>
           </div>        
           <hr>
     
@@ -61,7 +60,7 @@
                 <span>فیلتر کردن نتایج</span>
             </button>
         </div> {% endcomment %}
-        <a href="{% url 'customeradd' %}" 
+        <a href="{% url 'factoradd' %}" 
         class="btn btn-success" role="button">
             <div class="text-right ">
                 <i class="fa-solid fa-plus fs-6"></i>
@@ -72,7 +71,7 @@
         </a> 
     </div>
 
-    <div class="filter-box expand mb-3 px-3 pt-2 border rounded mt-2" id="filterBox">
+    {% comment %} <div class="filter-box expand mb-3 px-3 pt-2 border rounded mt-2" id="filterBox">
         <form method="GET">
           <div class="row mb-3">
               <div class="col d-flex justify-content-between">
@@ -99,25 +98,22 @@
                   <input type="text" name="lead" class="form-control m-2" placeholder="منبع" value="{{ request.GET.lead }}">
                   <button type="submit" class="btn btn-primary px-2 py-1 my-2"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
-              {% comment %} <div class="col-auto">
-                  <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
-              </div> {% endcomment %}
+              
           </div>
       </form>
-      </div>
+      </div> {% endcomment %}
 
       
     <div class="table-wrapper">
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
+                    <th>شماره</th>
+                    <th>قیمت</th>
                     <th>مشتری</th>
-                    <th>شعبه</th>
-                    <th>قفل</th>
-                    <th>مالک</th>
-                    <th>شماره تلفن</th>
+                    <th>پروسه</th>
                     <th>وضعیت</th>
-                    <th>منبع</th>
+                    <th>شرح</th>
                     <th>کاربر</th>
                     <th class="pinned-column bg-light">عملیات</th>
                 </tr>
@@ -125,22 +121,21 @@
             <tbody>
                 {% for item in object_list %}
                 <tr>
-                    <td class="align-center"><b>{{ item.name }}</b></td>
-                    <td class="align-center">{{ item.branch }}</td>
-                    <td class="align-center"><b>{{ item.lock }}</b></td>
-                    <td class="align-center"><b>{{ item.owner }}</b></td>
-                    <td class="align-center">{{ item.phone }}</td>
+                    <td class="align-center"><b>{{ item.number }}</b></td>
+                    <td class="align-center"><b>{{ item.price|intcomma }}</b></td>
+                    <td class="align-center">{{ item.customer }}</td>
+                    <td class="align-center"><b>{{ item.procedure }}</b></td>
                     <td class="align-center">{{ item.status }}</td>
-                    <td class="align-center">{{ item.lead }}</td>
+                    <td class="align-center">{{ item.comment }}</td>
                     <td class="align-center">{{ item.user }}</td>
                     <td class="pinned-column align-right bg-light">
                         <div class="align-right">
-                            <a  href="{% url "customerupdate" pk=item.pk %}"
+                            <a  href="{% url "factorupdate" pk=item.pk %}"
                                 class="btn btn-primary p-1 m-1" role="button">
                                 <i class="fa-regular fa-pen-to-square m-1"></i>
                             </a>
                             {% if user.is_staff %}
-                                <a href="{% url "customerdelete" pk=item.pk %}"
+                                <a href="{% url "factordelete" pk=item.pk %}"
                                     class="btn btn-danger p-1 m-1" role="button">
                                     <i class="fa-solid fa-trash m-1"></i>
                                 </a>
