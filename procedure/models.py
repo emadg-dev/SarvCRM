@@ -121,7 +121,48 @@ class Procedure(models.Model):
     def __str__(self):
         return str (self.customer.name + " - " + self.user.first_name) 
 
+class Staff(models.Model):
+    
+    
+    name = models.CharField(max_length=30, default='', blank=True) 
+
+    def __str__(self):
+        return str (self.name) 
+
+
+class Demo(models.Model):
+    
+    user = models.ForeignKey(CustomUser,
+            on_delete=models.PROTECT)
+    procedure = models.ForeignKey(Procedure,
+            on_delete=models.PROTECT)
+    staff = models.ForeignKey(Staff,
+            on_delete=models.PROTECT)
+    
+    comment = models.CharField(max_length=500, default='', blank=True) 
+
+    created_at = models.CharField(max_length=20, editable=False)
+    updated_at = models.CharField(max_length=20, editable=False)
+
+    date = models.DateField( auto_now=False, auto_now_add=False)
+    time = models.TimeField(auto_now=False, auto_now_add=False)
+
+    def get_jalali_date(self):
+        current_date = jdatetime.datetime.now()
+        return current_date.strftime('%Y/%m/%d')
+    
+    def save(self, *args, **kwargs):
+        if not self.created_at:  
+            self.created_at = self.get_jalali_date()
+        self.updated_at = self.get_jalali_date() 
+        
+        super(Demo, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return str (str(self.procedure) + " - " + str(self.staff)) 
 
 
 auditlog.register(Customer)
 auditlog.register(Procedure)
+auditlog.register(Staff)
+auditlog.register(Demo)

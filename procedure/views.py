@@ -139,3 +139,74 @@ class ProcedureUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'procedureupdate.html' 
     form_class = ProcedureUpdateForm
     success_url = reverse_lazy('procedurelist') 
+
+
+
+
+
+class DemoAddView(LoginRequiredMixin, CreateView): 
+    model = Demo
+    #form_class = CustomeraddForm
+    template_name = 'customeradd.html' 
+    fields = [
+        "procedure", "staff", "date", "time"
+    ]
+    success_url = reverse_lazy('demolist')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user 
+        return super().form_valid(form)
+
+class DemoListView(LoginRequiredMixin, ListView): 
+    model = Demo 
+    template_name= 'demolist.html' 
+    paginate_by = 10
+    def get_queryset(self): 
+        # userid = self.kwargs['id']
+        queryset = []
+        queryset = Demo.objects.all()
+
+        # if self.request.user.is_staff:
+        #     queryset = Customer.objects.all()
+        # else:
+        #     queryset = Customer.objects.filter(user=self.request.user)
+        
+        # name = self.request.GET.get('name', None)
+        # lock = self.request.GET.get('lock', None)
+        # phone = self.request.GET.get('phone', None)
+        # owner = self.request.GET.get('owner', None)
+        # status = self.request.GET.get('status', None)
+        # lead = self.request.GET.get('lead', None)
+
+        # # Apply filters to queryset if values are provided
+        # if name:
+        #     queryset = queryset.filter(name__icontains=name)
+        # if lock:
+        #     queryset = queryset.filter(lock__icontains=lock)
+        # if phone:
+        #     queryset = queryset.filter(phone__icontains=phone)
+        # if owner:
+        #     queryset = queryset.filter(owner__icontains=owner)
+        # if status:
+        #     queryset = queryset.filter(status__icontains=status)
+        # if lead:
+        #     queryset = queryset.filter(lead__icontains=lead)
+
+        return queryset
+
+
+class DemoDeleteView(StaffRequiredMixin, DeleteView): 
+    model = Demo 
+    template_name = 'demodelete.html' 
+    fields = "__all__" 
+    success_url = reverse_lazy('demolist') 
+
+
+class DemoUpdateView(LoginRequiredMixin, UpdateView): 
+    model = Demo 
+    template_name = 'demoupdate.html' 
+    # form_class = CustomerUpdateForm
+    fields = [
+        "procedure", "staff", "date", "time"
+    ]
+    success_url = reverse_lazy('demolist') 
