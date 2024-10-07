@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'accounts',
     'procedure',
     'dashboard',
+    'sms',
     'crispy_forms',
     'crispy_bootstrap5',
     'auditlog',
     'jdatetime',
+    'django_jalali',
     'django.contrib.humanize',
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

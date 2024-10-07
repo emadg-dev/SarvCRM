@@ -1,5 +1,7 @@
 absl-py==2.1.0
 asgiref==3.6.0
+certifi==2024.8.30
+charset-normalizer==3.3.2
 contourpy==1.1.0
 crispy==0.7.4
 crispy-bootstrap5==2024.2
@@ -15,7 +17,11 @@ filelock==3.11.0
 fonttools==4.40.0
 h5py==3.11.0
 hdf5plugin==4.4.0
+idna==3.10
 immutabledict==4.2.0
+jalali_core==1.0.0
+jdatetime==5.0.0
+kavenegar==1.1.2
 kiwisolver==1.4.4
 lxml==5.2.1
 matplotlib==3.7.1
@@ -39,6 +45,7 @@ python-utils==3.7.0
 pytz==2023.3
 pywin32==306
 qiskit==1.0.2
+requests==2.32.3
 rustworkx==0.14.2
 scipy==1.13.0
 silx==2.1.0
@@ -49,4 +56,5 @@ symengine==0.11.0
 sympy==1.12
 typing_extensions==4.7.0
 tzdata==2023.3
+urllib3==2.2.3
 virtualenv==20.21.0

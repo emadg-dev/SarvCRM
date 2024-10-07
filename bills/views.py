@@ -50,7 +50,7 @@ class BillListView(LoginRequiredMixin, ListView):
         # else:
         #     queryset = queryset.order_by(sort_field) 
 
-        return queryset
+        return queryset.order_by('-id')
 
 class BillAddView(LoginRequiredMixin, CreateView): 
     model = Bill
@@ -91,9 +91,9 @@ class FactorListView(LoginRequiredMixin, ListView):
         queryset = []
         
         if self.request.user.is_staff:
-            queryset = Bill.objects.all()
+            queryset = Factor.objects.all()
         else:
-            queryset = Bill.objects.filter(user=self.request.user)
+            queryset = Factor.objects.filter(user=self.request.user)
 
         # id = self.request.GET.get('id', None)
         # customer = self.request.GET.get('customer', None)
@@ -125,7 +125,7 @@ class FactorListView(LoginRequiredMixin, ListView):
         # else:
         #     queryset = queryset.order_by(sort_field) 
 
-        return queryset
+        return queryset.order_by('-id')
 
 class FactorAddView(LoginRequiredMixin, CreateView): 
     model = Factor
@@ -144,7 +144,7 @@ class FactorAddView(LoginRequiredMixin, CreateView):
 
 class FactorUpdateView(LoginRequiredMixin, UpdateView): 
     model = Factor 
-    template_name = 'billupdate.html' 
+    template_name = 'factorupdate.html' 
     form_class = FactorUpdateForm
     success_url = reverse_lazy('factorlist') 
 

@@ -54,7 +54,8 @@ class CustomerListView(LoginRequiredMixin, ListView):
         if lead:
             queryset = queryset.filter(lead__icontains=lead)
 
-        return queryset
+        
+        return queryset.order_by('-id')
 
 
 class CustomerDeleteView(StaffRequiredMixin, DeleteView): 
@@ -117,7 +118,7 @@ class ProcedureListView(LoginRequiredMixin, ListView):
         else:
             queryset = queryset.order_by(sort_field)  # Ascending order
 
-        return queryset
+        return queryset.order_by('-id')
 
 class ProcedureAddView(LoginRequiredMixin, CreateView): 
     model = Procedure
@@ -146,12 +147,16 @@ class ProcedureUpdateView(LoginRequiredMixin, UpdateView):
 
 class DemoAddView(LoginRequiredMixin, CreateView): 
     model = Demo
-    #form_class = CustomeraddForm
-    template_name = 'customeradd.html' 
+    template_name = 'demoadd.html' 
     fields = [
         "procedure", "staff", "date", "time"
     ]
     success_url = reverse_lazy('demolist')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['procedures'] = Procedure.objects.all()  
+        context['staff'] = Staff.objects.all() 
+        return context
 
     def form_valid(self, form):
         form.instance.user = self.request.user 
@@ -192,7 +197,7 @@ class DemoListView(LoginRequiredMixin, ListView):
         # if lead:
         #     queryset = queryset.filter(lead__icontains=lead)
 
-        return queryset
+        return queryset.order_by('-id')
 
 
 class DemoDeleteView(StaffRequiredMixin, DeleteView): 

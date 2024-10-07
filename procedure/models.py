@@ -4,6 +4,9 @@ from django.db import models
 from django.urls import reverse
 from accounts.models import CustomUser 
 import jdatetime
+from sms import models as sms
+import asyncio
+import django_jalali.db.models as jmodels
  
 # import django_jalali.db.models as jmodels
  
@@ -144,8 +147,8 @@ class Demo(models.Model):
     created_at = models.CharField(max_length=20, editable=False)
     updated_at = models.CharField(max_length=20, editable=False)
 
-    date = models.DateField( auto_now=False, auto_now_add=False)
-    time = models.TimeField(auto_now=False, auto_now_add=False)
+    date = jmodels.jDateField() 
+    time = models.TimeField() 
 
     def get_jalali_date(self):
         current_date = jdatetime.datetime.now()
@@ -154,12 +157,16 @@ class Demo(models.Model):
     def save(self, *args, **kwargs):
         if not self.created_at:  
             self.created_at = self.get_jalali_date()
+            asyncio.run(sms.Send("09038584500","دموی اولیه " + str(self)))
+        else:
+            asyncio.run(sms.Send("09038584500","به روزرسانی وضعیت دمو " + str(self)))
         self.updated_at = self.get_jalali_date() 
+
         
         super(Demo, self).save(*args, **kwargs)
 
     def __str__(self):
-        return str (str(self.procedure) + " - " + str(self.staff)) 
+        return str (str(self.procedure) + " - " + str(self.staff)) + " : " + str(self.date) +" - " + str(self.time)
 
 
 auditlog.register(Customer)

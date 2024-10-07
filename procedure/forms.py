@@ -178,3 +178,8 @@ class ProcedureUpdateForm(forms.ModelForm):
             'status': 'وضعیت',
             'user': 'کارشناس فروش',
         }
+
+class DemoForm(forms.ModelForm):
+    class Meta:
+        model = Demo
+        fields = ['procedure', 'staff', 'date', 'time'] 
