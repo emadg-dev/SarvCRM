@@ -6,8 +6,26 @@
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/datetimepicker.style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/mds.bs.datetimepicker.style.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/mds.bs.datetimepicker.js' %}"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+              
+            $('#date').MdPersianDateTimePicker({
+                targetDateSelector: '#date',
+            });
+    
+            $('#time').MdPersianDateTimePicker({
+                targetDateSelector: '#time',
+                type: 'time'
+            });
+    
+    
+        });
+    </script>
 </head>
 <body>
 
@@ -24,37 +42,41 @@
             
                 <form method="post" id="demo-form">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="procedure" class="form-label">روش</label>
-                        <select name="procedure" id="procedure" class="form-select" required>
-                            {% for procedure in form.procedure.field.queryset %}
-                                <option value="{{ procedure.id }}">{{ procedure }}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="d-flex justify-content-start align-items-right row g-3 mb-3 ">
+                        <div class="col-auto">
+                            <label for="procedure" class="form-label">پروسه</label>
+                            <select name="procedure" id="procedure" class="form-select" required>
+                                {% for procedure in form.procedure.field.queryset %}
+                                    <option value="{{ procedure.id }}">{{ procedure }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-auto">
+                            <label for="staff" class="form-label">کارمند</label>
+                            <select name="staff" id="staff" class="form-select" required>
+                                {% for staff in form.staff.field.queryset %}
+                                    <option value="{{ staff.id }}">{{ staff }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="staff" class="form-label">کارمند</label>
-                        <select name="staff" id="staff" class="form-select" required>
-                            {% for staff in form.staff.field.queryset %}
-                                <option value="{{ staff.id }}">{{ staff }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    <div class="d-flex justify-content-start align-items-right row g-3">
+                        <div class=" col-auto mb-3">
+                            <label for="date" class="form-label">تاریخ</label>
+                            <input type="text" name="date" id="datepicker" class="form-control" required />
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="date" class="form-label">تاریخ</label>
-                        <input type="text" name="date" id="date" class="form-control" required />
-                    </div>
+                        <div class="col-auto mb-3">
+                            <label for="time" class="form-label">زمان</label>
+                            <input type="text" name="time" id="time" class="form-control" required />
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="time" class="form-label">زمان</label>
-                        <input type="text" name="time" id="time" class="form-control" required />
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <button type="submit" class="btn btn-success">ثبت اطلاعات</button>
-                        <a href="{% url 'demolist' %}" class="btn btn-secondary" role="btn">انصراف</a>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <button type="submit" class="btn btn-success">ثبت اطلاعات</button>
+                            <a href="{% url 'demolist' %}" class="btn btn-secondary" role="btn">انصراف</a>
+                        </div>
                     </div>
                 </form>
 
@@ -66,31 +88,8 @@
 </section>
 
 
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/md.bootstrap.datetimepicker.js' %}"></script>
-<script>
-    $(document).ready(function() {
-        $('#loading-spinner').show(); // Show spinner on load
 
-        $('#date').MdPersianDateTimePicker({
-            targetDateSelector: '#date',
-            // Additional configuration options can be added here
-        });
 
-        $('#time').MdPersianDateTimePicker({
-            targetDateSelector: '#time',
-            type: 'time'
-        });
-
-        $('#demo-form').on('submit', function() {
-            $('#loading-spinner').show(); // Show spinner on form submit
-        });
-
-        $(window).on('load', function() {
-            $('#loading-spinner').hide(); // Hide spinner on load complete
-        });
-    });
-</script>
 
 </body>
 </html>

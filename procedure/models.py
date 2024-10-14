@@ -157,9 +157,9 @@ class Demo(models.Model):
     def save(self, *args, **kwargs):
         if not self.created_at:  
             self.created_at = self.get_jalali_date()
-            asyncio.run(sms.Send("09038584500","دموی اولیه " + str(self)))
-        else:
-            asyncio.run(sms.Send("09038584500","به روزرسانی وضعیت دمو " + str(self)))
+        #     asyncio.run(sms.Send("09038584500","دموی اولیه " + str(self)))
+        # else:
+        #     asyncio.run(sms.Send("09038584500","به روزرسانی وضعیت دمو " + str(self)))
         self.updated_at = self.get_jalali_date() 
 
         
