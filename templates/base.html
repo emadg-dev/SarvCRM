@@ -21,11 +21,14 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
     rel="stylesheet"
     /> 
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <style>
       @font-face {
         font-family: 'shabnam';
-        src: url('../fonts/shabnam.ttf') format('ttf'); 
+        
+        src: url('{% static 'fonts/shabnam.ttf' %}') format('ttf'); 
         font-weight: normal;
         font-style: normal;
       }  
@@ -72,7 +75,7 @@
     </button>
      <div class="collapse navbar-collapse" id="navbarSupportedContent">
       
-      <a class="navbar-brand  
+      <a class="navbar-brand"  
       href="{% url 'dashboard' %}"
       >
       

@@ -6,26 +6,15 @@
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/kamadatepicker.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/mds.bs.datetimepicker.style.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/mds.bs.datetimepicker.js' %}"></script>
-    <script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-              
-            $('#date').MdPersianDateTimePicker({
-                targetDateSelector: '#date',
-            });
-    
-            $('#time').MdPersianDateTimePicker({
-                targetDateSelector: '#time',
-                type: 'time'
-            });
-    
-    
-        });
-    </script>
+    <script src="{% static 'js/mds.bs.datetimepicker.js' %}"></script>
+    <script src="{% static 'js/kamadatepicker.holidays.js' %}"></script>
+    <script src="{% static 'js/kamadatepicker.min.js' %}"></script>
+
+
 </head>
 <body>
 
@@ -87,7 +76,48 @@
     </div>
 </section>
 
+    <script>
+        {% comment %} $( function() {
+            $( "#datepicker" ).datepicker();
+            
+            $('#date').MdPersianDateTimePicker({
+                targetDateSelector: '#date',
+            });
+    
+            $('#time').MdPersianDateTimePicker({
+                targetDateSelector: '#time',
+                type: 'time'
+            });
+    
+    
+        }); {% endcomment %}
+        var customOptions = {
+			placeholder: "روز / ماه / سال"
+			, twodigit: false
+			, closeAfterSelect: false
+			, nextButtonIcon: "fa fa-arrow-circle-right"
+			, previousButtonIcon: "fa fa-arrow-circle-left"
+			, buttonsColor: "blue"
+			, forceFarsiDigits: true
+			, markToday: true
+			, markHolidays: true
+			, highlightSelectedDay: true
+			, sync: true
+			, gotoToday: true
+		}
+        kamaDatepicker('datepicker', customOptions);
 
+        document.getElementById('demo-form').addEventListener('submit', function(event) {
+            var dateInput = document.getElementById('datepicker');
+            var dateValue = dateInput.value;
+    
+            // Replace slashes with dashes
+            var formattedDate = dateValue.replace(/\//g, '-');
+            
+            // Set the formatted date back to the input field
+            dateInput.value = formattedDate;
+        });
+    </script>
 
 
 

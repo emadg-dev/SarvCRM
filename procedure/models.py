@@ -161,7 +161,7 @@ class Demo(models.Model):
         # else:
         #     asyncio.run(sms.Send("09038584500","به روزرسانی وضعیت دمو " + str(self)))
         self.updated_at = self.get_jalali_date() 
-
+        
         
         super(Demo, self).save(*args, **kwargs)
 

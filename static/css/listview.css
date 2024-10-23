@@ -25,4 +25,23 @@
     margin-bottom: 10px; 
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid black;
+  position: relative;
+}
+
+th .resizer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: col-resize;
+  background-color: lightgray;
+}
     
